@@ -41,8 +41,9 @@
   <div id="book-list"></div>
 
   <script>
-    const MY_SERVER = 'https://library-projact.onrender.com';
-
+    // const MY_SERVER = 'https://library-projact.onrender.com';
+    const MY_SERVER = 'http://127.0.0.1:5000';
+    
     const searchBook = () => {
       const searchName = document.getElementById('search-name').value;
       axios.get(`${MY_SERVER}/books/search/${searchName}`)
@@ -97,6 +98,7 @@
             <td>${book.book_loan}</td>
             <td>
               <button onclick="deleteBook(${book.id})">DELETE</button>
+              <button onclick="updateBook(${book.id})">Update</button>
             </td>
           </tr>`;
       });
@@ -107,6 +109,34 @@
 
       bookList.innerHTML = tableHTML;
     };
+
+
+    const updateBook = (id) => {
+  // You can prompt the user for updated details using window.prompt or display a form to update the book information.
+  // After obtaining the updated details, you can send a PUT request to the server to update the book.
+
+  // Example:
+  const newBookName = prompt('Enter the updated book name:');
+  const newWriter = prompt('Enter the updated writer:');
+  const newYearPublished = prompt('Enter the updated year published:');
+  const newBookLoan = prompt('Enter the updated book type:');
+
+  // Make a PUT request to update the book
+  axios.put(`${MY_SERVER}/books/update/${id}`, {
+      bookname: newBookName,
+      writer: newWriter,
+      year_published: newYearPublished,
+      book_loan: newBookLoan
+    })
+    .then(response => {
+      // Handle the response if needed
+      getData(); // Refresh the book list after updating
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
+
 
     async function deleteBook(bookId) {
       try {

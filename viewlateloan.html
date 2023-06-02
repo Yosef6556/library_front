@@ -43,7 +43,6 @@
                                 <th>Book Name</th>
                                 <th>Loan Date</th>
                                 <th>Return Date</th>
-                                <th>Action</th>
                             </tr>`;
         data.forEach(obj => {
             tableHTML += `<tr>
@@ -51,9 +50,6 @@
                             <td>${obj.book_name}</td>
                             <td>${obj.loan_date}</td>
                             <td>${obj.return_date}</td>
-                            <td>
-                                <button onclick="delete_loan(${obj.id})">DELETE</button>
-                            </td>
                         </tr>`;
         });
         tableHTML += '</table>';
